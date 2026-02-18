@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState ,useCallback } from "react";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
@@ -32,7 +33,7 @@ function App() {
   
   useEffect(() => {
     loadExpenses();
-  }, [loadExpenses]);
+  }, [loadExpenses, category, sort]);
 
   const total = expenses.reduce((sum, e) => sum + e.amount, 0);
 
