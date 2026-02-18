@@ -1,0 +1,28 @@
+const mongoose = require("mongoose");
+
+const expenseSchema = new mongoose.Schema({
+  idempotencyKey: {
+    type: String,
+    unique: true
+  },
+  amount: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  description: String,
+  date: {
+    type: Date,
+    required: true
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+module.exports = mongoose.model("Expense", expenseSchema);
