@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useCallback } from "react";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import Filters from "./components/Filters";
@@ -10,13 +10,28 @@ function App() {
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("date_desc");
 
-  const loadExpenses = async () => {
-    setExpenses(await fetchExpenses(category, sort));
-  };
+  // const loadExpenses = async () => {
+    
+  // };
 
+  // useEffect(() => {
+  //   loadExpenses();
+  // }, [category, sort]);
+
+  const loadExpenses = useCallback(async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/expenses`
+      );
+      setExpenses(res.data);
+    } catch (err) {
+      console.error("Failed to load expenses", err);
+    }
+  }, []);
+  
   useEffect(() => {
     loadExpenses();
-  }, [category, sort]);
+  }, [loadExpenses]);
 
   const total = expenses.reduce((sum, e) => sum + e.amount, 0);
 
