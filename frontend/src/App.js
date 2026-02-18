@@ -3,6 +3,7 @@ import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import Filters from "./components/Filters";
 import { fetchExpenses } from "./Api";
+import axios from "axios";
 import "./styles.css";
 
 function App() {
